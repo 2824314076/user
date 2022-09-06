@@ -1,5 +1,5 @@
 /****** PLACE YOUR CUSTOM STYLES HERE ******/
-body {
+.home {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -36,8 +36,7 @@ textarea {
     font-style: normal;
 }
 
-html,
-body {
+.home {
     font-family: 微软雅黑, MicrosoftYahei, sans-serif;
     color: #fff;
     background-size: 100% 100%;
@@ -1579,4 +1578,5 @@ i.redr {
 
 .zhtc_table_li_content div:nth-child(4) {
     flex: 0.7;
+
 }
