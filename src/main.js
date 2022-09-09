@@ -3,7 +3,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import * as echarts from 'echarts';
-
+import VueParticles from 'vue-particles'
 Vue.prototype.$echarts = echarts
 import AmapVue from '@amap/amap-vue'
 import App from './App.vue'
@@ -25,6 +25,7 @@ AmapVue.config.plugins = [
 ];
 
 
+Vue.use(VueParticles)
 Vue.use(echarts)
 Vue.use(axios)
 Vue.use(ElementUI)
