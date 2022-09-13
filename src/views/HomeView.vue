@@ -131,7 +131,9 @@
           <h2 style="text-align: center;color: white;">车辆行驶里程风险</h2>
           <div class="flex around" style="height: 90%">
             <div class="kilometre">
-              <div v-for="(item,index) in this.travel">{{ item.title }}安全行驶累计里程 <span>{{ item.num }}</span> 公里
+              <div v-for="(item,index) in this.travel" :key="index">{{ item.title }}安全行驶累计里程 <span>{{
+                  item.num
+                }}</span> 公里
               </div>
             </div>
             <div class="vehicle-mileage">
@@ -217,14 +219,14 @@
           <div class="flex early-warning">
             <div class="active-safety">
               <div class="align">
-                <div class="line">2350</div>
-                <div>2350</div>
+                <div class="line"><span class="icon iconfont icon-anquan"></span></div>
+                <div class="margin">2350</div>
               </div>
               <div class="align">主动安全车辆数</div>
             </div>
             <div class="police">
               <div class="align">
-                <div class="line">1</div>
+                <div class="line"><span class="icon iconfont icon-zuoyebaojing-copy"></span></div>
                 <div>2</div>
               </div>
               <div class="align">主动安全车辆数</div>
@@ -260,7 +262,7 @@
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import "../css/font_3640822_3f52u20dc27/iconfont.css"
 export default {
   name: 'HomeView',
   components: {
@@ -512,6 +514,7 @@ export default {
   },
   mounted() {
     this.getmounted()
+
   },
   methods: {
     ap(id) {
@@ -600,7 +603,7 @@ export default {
         // 创建一个 点标记Icon
 
         let startIcon = new AMap.Icon({
-          size: new AMap.size(40, 40),
+          size: new AMap.Size(40, 40),
           image: mapIcon,
           imageSize: new AMap.Size(40, 40)
         });
@@ -642,7 +645,7 @@ export default {
       })
     },
     getEchartData() {
-      var myChart = this.$echarts.init(document.getElementById('chart'));
+      const myChart = this.$echarts.init(document.getElementById('chart'));
       const seriesLabel = {
         show: true
       };
@@ -654,7 +657,7 @@ export default {
 
     },
     getEchartData1() {
-      var myChart = this.$echarts.init(document.getElementById('chart1'));
+      let myChart = this.$echarts.init(document.getElementById('chart1'));
       const seriesLabel = {
         show: true
       };
@@ -666,7 +669,7 @@ export default {
 
     },
     getEchartfaulty() {
-      var myChart = this.$echarts.init(document.getElementById('suspected-fault'));
+      let myChart = this.$echarts.init(document.getElementById('suspected-fault'));
       const seriesLabel = {
         show: true
       };
@@ -677,7 +680,7 @@ export default {
       })
     },
     getEcharttrend() {
-      var myChart = this.$echarts.init(document.getElementById('risk-trend'));
+      let myChart = this.$echarts.init(document.getElementById('risk-trend'));
       const seriesLabel = {
         show: true
       };
@@ -688,7 +691,7 @@ export default {
       })
     },
     getEchartvehicle() {
-      var myChart = this.$echarts.init(document.getElementById('yesterday-mileage'));
+      let myChart = this.$echarts.init(document.getElementById('yesterday-mileage'));
       const seriesLabel = {
         show: true
       };
@@ -784,7 +787,7 @@ export default {
       width: 22%;
       height: 100%;
       background-size: cover;
-      font-family: "Impact";
+      //font-family: "Impact";
 
       .border {
         width: 95%;
@@ -899,7 +902,7 @@ export default {
 
         ::v-deep .el-table {
           width: 90%;
-          margin: 4% 0% 0% 7%;
+          margin: 4% 0 0 7%;
           height: 100%;
           background: transparent;
           color: white;
@@ -1095,13 +1098,19 @@ export default {
 
 .align {
   text-align: center;
+  margin-top: 15px;
 }
 
-.line {
-  line-height: 50px;
-}
+//
+//.line {
+//  line-height: 30px;
+//}
 
 .left {
   margin-left: 8%;
 }
+
+//.margin{
+//  margin-top: -10px;
+//}
 </style>
