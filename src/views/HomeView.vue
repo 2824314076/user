@@ -11,20 +11,26 @@
       <div class="flex between ">
         <div class="ranking">
           <div class="row">
-            <div class="flex">
+            <div class="flex groundcolor">
               <div class="font">货主排名top10</div>
               <div class="flex mar button" v-for="(item,index) in ranking" :key="index">
                 <el-button :class="item.origin" @click="ownercargo(index)">{{ item.name }}</el-button>
               </div>
             </div>
-            <div id="consignor" style="width: 100%;height: 300px;"></div>
+            <div id="consignor" style="width: 100%;height: 250px;"></div>
           </div>
-          <div class="spacing">
-            <div class="font">线路运距占比</div>
-            <div id="line" style="width: 100%;height: 300px;"></div>
+          <div class="volume">
+            <div class="flex model">
+              <div class="font">车型和发运量</div>
+              <div class="flex button">
+                <el-button>车辆占比</el-button>
+                <el-button>发运量占比</el-button>
+              </div>
+            </div>
+            <div id="shipping" style="width: 95%;height:85%;"></div>
           </div>
           <div class="carrier">
-            <div class=" flex">
+            <div class="flex groundcolor titleinto">
               <div class="font">承运商排名top10</div>
               <div class="flex mar button" v-for="(item,index) in acceptcarriage" :key="index">
                 <el-button :class="item.green" @click="undertaketransport(index)">{{ item.name }}</el-button>
@@ -33,7 +39,9 @@
             <div>
               <ul v-for="(item,index) in 10" class="flex" style="list-style-type:none;padding: 0;margin:0 0 10px 0;">
                 <li style="width: 30px;height:30px;text-align: center;background:orange;">
-                  <div style="border-radius: 50%;background: red;width: 20px;line-height: 20px;margin-top:15%;">01</div>
+                  <div style="border-radius: 50%;background: red;width: 20px;line-height: 20px;margin-top:15%;">
+                    {{ index + 1 }}
+                  </div>
                 </li>
                 <li style="width: 300px;line-height:30px;background:orange;">北京中兴路车联网有限公司</li>
                 <li style="line-height:30px;background:orange;">5000</li>
@@ -42,19 +50,19 @@
           </div>
         </div>
         <div class="statistics">
-          <div>
-            <div style="background: #42b983;padding-left: 1%;">统计分析</div>
+          <div class="StatisticalAnalysis" style="height: 29%;">
+            <h2 style="padding-left:5%;padding-top: 5%;">统计分析</h2>
             <div>
-              <div class="flex wrap" style="width: 100%;">
-                <div style="width: 50%;text-align: center;" v-for="(item,index) in amountnum" :key="index">
+              <div class="flex wrap" style="width: 100%;line-height: 3vh;">
+                <div style="width: 45%;text-align: center;" v-for="(item,index) in amountnum" :key="index">
                   <div>{{ item.title }}</div>
-                  <div class="flex">
-                    <div class="flex">
-                      <div id="growth" style="margin-right: 10%;background: red;" v-for="(ite,ind) in item.num"
+                  <div class="flex" style="justify-content: center;">
+                    <div class="flex ">
+                      <div id="growth" style="margin-right:3%;" v-for="(ite,ind) in item.num"
                            :key="ind">
-                        {{ ite }}
+                        <div style="background: red;width: 20px;text-align: center;">{{ ite }}</div>
                       </div>
-                      <div style="margin-left: 30%">
+                      <div>
                         {{ item.company }}
                       </div>
                     </div>
@@ -64,7 +72,7 @@
             </div>
           </div>
           <div class="growthtrend">
-            <div class="flex">
+            <div class="flex seven">
               <div class="font">7日增长趋势</div>
               <div class="flex button">
                 <el-button>货主</el-button>
@@ -72,30 +80,42 @@
                 <el-button>车辆</el-button>
               </div>
             </div>
-            <div id="trend" style="width: 100%;height: 300px;"></div>
+            <div id="trend" style="width: 100%;height: 95%;"></div>
           </div>
-          <div class="freightindex">
-            <div class="font">7日运价指数</div>
-            <div id="trends" style="width: 100%;height: 300px;"></div>
-          </div>
-          <div class="shippingvolume">
-            <div class="flex">
-              <div class="font">货物比例</div>
-              <div class="flex button">
-                <el-button>月度</el-button>
-                <el-button>年度</el-button>
+          <div>
+            <div>热门路线发运量排名(月度)</div>
+            <div class="flex between" v-for="(item,index) in 10" :key="index"
+                 style="margin-top: 3%;height: 29px;width: 100%;background-color:;">
+              <div class="flex">
+                <div class="marginRight Monthlyranking" style="background: orange;">top{{ index + 1 }}</div>
+                <div class="marginRight">安阳</div>
               </div>
+              <div class="marginRight">-------</div>
+              <div class="marginRight">梅州</div>
             </div>
-            <div id="goods" style="width: 100%;height: 300px;"></div>
           </div>
         </div>
-        <div style="width: 20%;">
-          <div>123</div>
-          <div>123</div>
+        <div style="width: 20%;margin-top:0.8%;">
+          <div class="stateimg">
+            <tr>
+              <td v-for="(item,key,index) in state" style="width:10%;" :key="index">
+                <div style="text-align: center;">{{ key }}</div>
+                <div class="flex between" v-for="(ite,ind) in item" :key="ind">
+                  <div>⭐</div>
+                  <div>{{ ite.title }}</div>
+                  <div>{{ ite.num }}</div>
+                </div>
+              </td>
+            </tr>
+          </div>
+          <div style="height: 47  %;">
+            <amap/>
+          </div>
           <div class="table">
             <el-table
                 :data="tableData"
-                style="width: 100%">
+                height="30vh"
+                ref="table">
               <el-table-column
                   prop="date"
                   label="日期">
@@ -112,63 +132,60 @@
           </div>
         </div>
         <div style="width: 20%;">
-          <div class="flex wrap" style="width: 80%;">
-            <div v-for="(item,index) in 8" style="margin-right: 10px;text-align: center;margin-bottom: 10px;">
-              <div>累计货主</div>
-              <div>300家</div>
+          <div class="flex wrap consignor" style="width: 100%; height: 29%;">
+            <div class="consignor_line" v-for="(item,index) in 9"
+                 style="margin-right: 10px;text-align: center;margin-bottom: 10px;width: 30%;">
+              <div style="font-size: 10px">累计货主</div>
+              <div style="font-size:20px">300家</div>
             </div>
           </div>
-          <div>123</div>
+          <div>
+            <div class="freightindex">
+              <div class="font">7日运价指数</div>
+              <div id="trends" style="width: 100%;height: 270px;"></div>
+            </div>
+          </div>
           <div>
             <div>热门线路运次排名(月度)</div>
-            <ul class="list-type flex" v-for="(item,index) in 10" :key="index">
-              <li class="flex">
-                <div style="background: green">top1</div>
-                <div>安阳</div>
-                <div>-------</div>
-                <div>梅州</div>
-              </li>
-            </ul>
+            <div class="flex between" v-for="(item,index) in 10" :key="index"
+                 style="margin-top: 3%;height: 29px;width: 100%;background-color:;">
+              <div class="flex">
+                <div class="marginRight Monthlyranking" style="background: orange;">top{{ index + 1 }}</div>
+                <div class="marginRight">安阳</div>
+              </div>
+              <div class="marginRight">-------</div>
+              <div class="marginRight">梅州</div>
+            </div>
           </div>
-          <div>123</div>
         </div>
         <div style="width:20%;">
-          <div>
-            <table>
-              <tr>
-                <td v-for="(item,key,index) in state" :key="index">
-                  <ul class="list-type">
-                    <li>{{ key }}</li>
-                    <li class="flex" v-for="(ite,ind) in item" :key="ind">
-                      <div>⭐</div>
-                      <div>{{ ite.title }}</div>
-                      <div>{{ ite.num }}</div>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
+          <div class="spacing">
+            <div class="font">线路运距占比</div>
+            <div id="line" style="width: 100%;height: 250px;"></div>
           </div>
-          <div class="volume">
-            <div class="flex">
-              <div class="font">车型和发运量</div>
-              <div class="flex button">
-                <el-button>车辆占比</el-button>
-                <el-button>发运量占比</el-button>
+          <div>
+            <div class="shippingvolume">
+              <div class="flex">
+                <div class="font">货物比例</div>
+                <div class="flex button">
+                  <el-button>月度</el-button>
+                  <el-button>年度</el-button>
+                </div>
+              </div>
+              <div id="goods" style="width: 100%;height: 270px;"></div>
+            </div>
+          </div>
+          <div>
+            <div>各省发货量</div>
+            <div>
+              <div v-for="(item,index) in 10" :key="index">
+                <div class="delivery flex between">
+                  <div class="titlelist">{{ index + 1 }}</div>
+                  <div>北京中兴路车联网有限公司</div>
+                  <div>5000</div>
+                </div>
               </div>
             </div>
-            <div id="shipping" style="width: 100%;height: 300px;"></div>
-          </div>
-          <div>
-            <div>热门路线发运量排名(月度)</div>
-            <ul style="width: 100%;" class="list-type flex" v-for="(item,index) in 10" :key="index">
-              <li class="flex">
-                <div style="background: orange ">top1</div>
-                <div>安阳</div>
-                <div>-------</div>
-                <div>梅州</div>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -178,11 +195,12 @@
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import amap from '@/views/amap'
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    HelloWorld,
+    amap
   },
   data() {
     return {
@@ -226,27 +244,27 @@ export default {
         {
           title: '今日发运量',
           num: '300',
-          company: ''
+          company: '单'
         },
         {
           title: '今日发运车次',
           num: '300',
-          company: ''
+          company: '单'
         },
         {
           title: '今日',
           num: '30000',
-          company: ''
+          company: '单'
         },
         {
           title: '今日运单量',
           num: '300',
-          company: ''
+          company: '单'
         },
         {
           title: '今日运单量',
           num: '300',
-          company: ''
+          company: '单'
         },
       ],
       optiontrend: {
@@ -355,6 +373,9 @@ export default {
         yAxis: {
           type: 'value'
         },
+        grid: {
+          left: 50
+        },
         series: [
           {
             data: [5004, 4020, 3500, 3500, 3000, 2600, 2000, 1600, 1000, 400],
@@ -385,11 +406,14 @@ export default {
           }
         },
         xAxis: {
-          type: 'value',
+          type: 'category',
+          data: ['0-20', '20-50', '50-100', '100-150', '150-200', '200+'],
+          axisLabel: {
+            interval: 0
+          }
         },
         yAxis: {
-          type: 'category',
-          data: ['0-20', '20-50', '50-100', '100-150', '150-200', '200+']
+          type: 'value',
         },
         series: [
           {
@@ -422,6 +446,7 @@ export default {
             name: 'Access From',
             type: 'pie',
             radius: '40%',
+            center: ['40%', '50%'],
             data: [
               {value: 1, name: '高栏车'},
               {value: 2, name: '冷藏车'},
@@ -477,23 +502,39 @@ export default {
           }
         ]
 
-      }, tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      },
+      tableData: [
+        {
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        },
+        {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        },
+        {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        },
+        {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        },
+        {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        },
+        {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }
+      ]
     }
   },
   mounted() {
@@ -566,6 +607,16 @@ export default {
       }, 100)
 
     },
+    autoscroll() {
+      const table = this.$refs.table
+      const divData = table.bodyWrapper
+      setInterval(() => {
+        divData.scrollTop += 1
+        if (divData.clientHeight + divData.scrollTop === divData.scrollHeight) {
+          divData.scrollTop = 0
+        }
+      }, 30)
+    },
     getNum() {
       for (let i = 0; i < this.amountnum.length; i++) {
         if (this.amountnum[i].num.length >= 5) {
@@ -575,6 +626,7 @@ export default {
       }
     },
     getmounted() {
+      this.autoscroll()
       this.getNum()
       this.getTime()
       this.getTrends()
@@ -584,30 +636,6 @@ export default {
       this.getline()
       this.getshipping()
     }
-  },
-  filters: {
-    formatDate(time) {
-      let year = time.getFullYear()
-      let mounth = time.getMonth()
-      let day = time.getDate()
-      let hours = time.getHours()
-      hours = hours >= 10 ? hours : "0" + hours;
-      let minutes = time.getMinutes()
-      minutes = minutes >= 10 ? minutes : "0" + minutes;
-      let seconds = time.getSeconds();
-      seconds = seconds >= 10 ? seconds : "0" + seconds;
-      let week = time.getDay();
-      let weekArr = [
-        "星期日",
-        "星期一",
-        "星期二",
-        "星期三",
-        "星期四",
-        "星期五",
-        "星期六",
-      ];
-      return `${year}-${mounth}-${day} ${weekArr[week]} ${hours}:${minutes}:${seconds} `
-    },
   },
   beforeDestroy() {
     if (this.timer) {
@@ -634,17 +662,27 @@ export default {
     margin-left: 1%;
 
     .row {
+      height: 28%;
+      background: url(@/assets/row.png) no-repeat;
+      background-size: cover;
+      padding: 1%;
+
+      .groundcolor {
+        margin-top: 5%;
+        margin-left: 5%;
+      }
+
       .font {
         color: #f59f2e;
         width: 100%;
       }
 
       .button {
-        width: 70%;
+        width: 65%;
 
         .el-button {
           line-height: 0;
-          background: #033b76;
+          background: #0406c0;
           color: white;
           border: 0;
           padding: 5px;
@@ -660,26 +698,25 @@ export default {
       }
     }
 
-    .spacing {
-      .font {
-        color: #43c6c8;
-        background: #013064;
-      }
-    }
 
     .carrier {
       .font {
         color: #2ac2de;
         width: 100%;
-        margin-bottom: 30px;
+      }
+
+      .titleinto {
+        height: 15px;
+        margin-bottom: 3%;
       }
 
       .button {
         width: 50%;
 
         .el-button {
+          height: 20px;
           line-height: 0;
-          background: #033b76;
+          background: #0406bf;
           color: white;
           border: 0;
           padding: 5px;
@@ -699,6 +736,12 @@ export default {
 
   .statistics {
     width: 19%;
+    margin-top: -0.8%;
+
+    .StatisticalAnalysis {
+      background: url(@/assets/row.png) no-repeat;
+      // padding: 5%;
+    }
 
     #trend {
       width: 100%;
@@ -706,16 +749,28 @@ export default {
     }
 
     .growthtrend {
+      height: 28%;
+      background: url(@/assets/growthtrend.png) no-repeat;
+      margin-top: -1vh;
+
       .font {
         width: 60%;
+        margin-top: 3%;
+      }
+
+      .seven {
+        padding-top: 3%;
+        padding-left: 5%;
       }
 
       .button {
-        width: 30%;
+        width: 50%;
+        margin-top: 3%;
 
         .el-button {
+          height: 3vh;
           line-height: 0;
-          background: #033b76;
+          background: #0406bf;
           color: white;
           border: 0;
           padding: 5px;
@@ -729,52 +784,77 @@ export default {
       }
     }
 
-    .shippingvolume {
-      .font {
-        width: 55%;
-      }
 
-      .button {
-        width: 40%;
+  }
 
-        .el-button {
-          line-height: 0;
-          background: #033b76;
-          color: white;
-          border: 0;
-          padding: 5px;
-        }
+  .shippingvolume {
+    .font {
+      width: 55%;
+    }
+
+    .button {
+      width: 40%;
+
+      .el-button {
+        line-height: 0;
+        background: #0406be;
+        color: white;
+        border: 0;
+        padding: 5px;
       }
     }
   }
-  ::v-deep .table{
-    .el-table{
+
+  ::v-deep .table {
+    .el-table {
       background: transparent;
-     //.el-table__cell{
-     //  background: transparent;
-     //}
-     tr{
-       background: transparent;
-     }
-     td{
-       color: white;
-       border: 0;
-     }
-     th{
-       background: #033b76;
-       border: 0;
-     }
+      //.el-table__cell{
+      //  background: transparent;
+      //}
+      tr {
+        background: transparent;
+      }
+
+      td {
+        color: white;
+        border: 0;
+      }
+
+      th {
+        background: #033b76;
+        border: 0;
+      }
     }
-   .el-table__body tr:hover > td {
+
+    .el-table__body tr:hover > td {
       background-color: #3D52984F !important;
-    }    .el-table__row{
+    }
+
+    .el-table__body-wrapper::-webkit-scrollbar {
+      /*width: 0;宽度为0隐藏*/
+
+      width: 0;
+      display: none;
+    }
+
+    .el-table__row {
       background: #2ac2de;
     }
-    .el-table::before{
+
+    .el-table::before {
       height: 0;
     }
   }
-  .volume{
+
+  .volume {
+    height: 30%;
+    background: url(@/assets/volume.png);
+
+    .model {
+      padding-top: 5%;
+      padding-left: 5%;
+    }
+
     .font {
       width: 50%;
     }
@@ -784,7 +864,7 @@ export default {
 
       .el-button {
         line-height: 0;
-        background: #033b76;
+        background: #0406bf;
         color: white;
         border: 0;
         padding: 5px;
@@ -799,6 +879,7 @@ export default {
 
 .title {
   line-height: 80px;
+  height: 11vh;
 
   h1 {
     margin-left: 2%;
@@ -808,6 +889,10 @@ export default {
 
 .between {
   justify-content: space-between;
+}
+
+.around {
+  justify-content: space-around;
 }
 
 .wrap {
@@ -820,5 +905,54 @@ export default {
 
 .mar {
   margin-left: 2%;
+}
+
+// .marginRight{
+//   margin-right:10%;
+// }
+.delivery {
+  margin-top: 2.3%;
+  background-color: #f59f2e;
+  padding: 1%;
+
+  .titlelist {
+    width: 1vw;
+    text-align: center;
+    border-radius: 50%;
+    background-color: red;
+  }
+}
+
+.content {
+  justify-content: center;
+  text-align: center;
+}
+
+.Monthlyranking {
+  width: 2.5vw;
+}
+
+.stateimg {
+  background: url(@/assets/state.png);
+  padding: 4%;
+}
+
+.consignor {
+  background: url(@/assets/consignor.png) no-repeat;
+  background-size: 100%;
+
+  .consignor_line {
+    margin-top: 10%;
+  }
+}
+
+.spacing {
+  background: url(@/assets/row.png) no-repeat;
+  padding: 5%;
+
+  .font {
+    width: 95%;
+    color: #43c6c8;
+  }
 }
 </style>
